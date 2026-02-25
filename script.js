@@ -1,32 +1,41 @@
-const wall = document.getElementById('wall');
-const switchAction = document.getElementById('switch-action');
-const bear = document.getElementById('bear');
-let busy = false;
+const room = document.getElementById("room");
+const bear = document.getElementById("bear");
+const button = document.getElementById("toggleBtn");
 
-switchAction.addEventListener('click', () => {
-    if (busy) return; 
+let lightOn = false;
+let isAnimating = false;
 
-    // Efek tarik
-    switchAction.classList.add('pulling');
-    setTimeout(() => switchAction.classList.remove('pulling'), 100);
+function bearAction() {
+    if (isAnimating) return;
 
-    // Lampu Nyala
-    wall.classList.add('light-on');
-    busy = true;
+    isAnimating = true;
 
     // Beruang keluar
-    setTimeout(() => {
-        bear.classList.add('active');
+    bear.classList.add("show");
 
-        // Beruang narik balik (matikan)
+    setTimeout(() => {
+        // Beruang toggle lampu
+        lightOn = !lightOn;
+
+        if (lightOn) {
+            room.classList.remove("light-off");
+            room.classList.add("light-on");
+            button.textContent = "Matikan Lampu";
+        } else {
+            room.classList.remove("light-on");
+            room.classList.add("light-off");
+            button.textContent = "Nyalain Lampu";
+        }
+
+        // Beruang masuk lagi
         setTimeout(() => {
-            wall.classList.remove('light-on');
-            
-            // Beruang sembunyi lagi
-            setTimeout(() => {
-                bear.classList.remove('active');
-                busy = false;
-            }, 400);
-        }, 600);
-    }, 500);
+            bear.classList.remove("show");
+            isAnimating = false;
+        }, 800);
+
+    }, 800);
+}
+
+button.addEventListener("click", () => {
+    bearAction();
 });
