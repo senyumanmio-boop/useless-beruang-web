@@ -1,51 +1,319 @@
+/* Reset dan Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    background: #111;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
-}
-
-.room {
-    width: 400px;
-    height: 300px;
-    margin: 30px auto;
-    position: relative;
-    border: 5px solid #333;
     overflow: hidden;
-    transition: background 0.5s;
 }
 
-.light-on {
-    background: #fff9c4;
+.container {
+    text-align: center;
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
 }
 
-.light-off {
-    background: #222;
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #ffd93d;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Room Container */
+.room {
+    background: linear-gradient(180deg, #2d3436 0%, #636e72 100%);
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    border: 4px solid #4a4a4a;
+}
+
+/* Light Bulb */
+.light {
+    position: relative;
+    width: 80px;
+    height: 100px;
+    margin: 0 auto 20px;
+}
+
+.bulb {
+    width: 60px;
+    height: 60px;
+    background: #4a4a4a;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+    border: 3px solid #333;
+}
+
+.bulb.on {
+    background: #ffd93d;
+    box-shadow: 0 0 30px #ffd93d, 0 0 60px #ffd93d, 0 0 90px #ffd93d;
+    border-color: #fff;
+}
+
+.rays {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(circle, rgba(255,217,61,0.3) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.rays.active {
+    opacity: 1;
+    animation: rayPulse 1s infinite alternate;
+}
+
+@keyframes rayPulse {
+    0% { transform: translateX(-50%) scale(1); }
+    100% { transform: translateX(-50%) scale(1.1); }
+}
+
+/* Door */
+.door-frame {
+    width: 120px;
+    height: 180px;
+    background: #5d4037;
+    border-radius: 10px 10px 0 0;
+    margin: 0 auto 20px;
+    position: relative;
+    border: 5px solid #3e2723;
+    overflow: hidden;
 }
 
 .door {
-    width: 80px;
-    height: 160px;
-    background: brown;
+    width: 100%;
+    height: 100%;
+    background: #6d4c41;
     position: absolute;
-    right: 0;
-    bottom: 0;
+    top: 0;
+    left: 0;
+    transition: transform 0.5s ease;
+    transform-origin: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.door.open {
+    transform: perspective(500px) rotateY(-70deg);
 }
 
 .bear {
-    position: absolute;
-    right: -100px;
-    bottom: 20px;
     font-size: 60px;
-    transition: right 0.5s;
+    position: absolute;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.3s ease;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
 }
 
-.bear.show {
-    right: 100px;
+.bear.visible {
+    opacity: 1;
+    transform: translateX(0);
+    animation: bearWiggle 0.5s infinite alternate;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 18px;
+@keyframes bearWiggle {
+    0% { transform: translateX(0) rotate(-5deg); }
+    100% { transform: translateX(0) rotate(5deg); }
+}
+
+/* Switch Panel */
+.switch-panel {
+    background: #e0e0e0;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.switch-label {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.switch {
+    width: 80px;
+    height: 40px;
+    background: linear-gradient(180deg, #666 0%, #444 100%);
+    border-radius: 20px;
+    border: none;
     cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.switch:hover {
+    transform: scale(1.05);
+}
+
+.switch:active {
+    transform: scale(0.95);
+}
+
+.switch-handle {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(180deg, #fff 0%, #ddd 100%);
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.switch.on .switch-handle {
+    left: 42px;
+}
+
+.status {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    min-height: 30px;
+}
+
+/* Drama Box */
+.drama-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 107, 107, 0.2);
+    border: 2px solid #ff6b6b;
+    border-radius: 10px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.drama-box p {
+    font-size: 1.1rem;
+    color: #ff6b6b;
+    font-weight: bold;
+    animation: textPulse 0.5s infinite alternate;
+}
+
+@keyframes textPulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Stats */
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.stat-item {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 10px;
+    flex: 1;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffd93d;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: #aaa;
+}
+
+/* Footer */
+.footer {
+    margin-top: 30px;
+}
+
+.footer p {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.reset-btn {
+    padding: 12px 30px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.reset-btn:hover {
+    background: #c0392b;
+    transform: scale(1.05);
+}
+
+/* Bear Animation States */
+.bear.shouting {
+    animation: bearShouting 0.2s infinite;
+}
+
+@keyframes bearShouting {
+    0%, 100% { transform: scale(1) translateX(0); }
+    50% { transform: scale(1.2) translateX(5px); }
+}
+
+/* Dark Mode When Light Off */
+.room.dark {
+    background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+.room.dark .bulb {
+    background: #333;
+    box-shadow: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.2rem;
+    }
+    
+    .stats {
+        flex-wrap: wrap;
+    }
+    
+    .stat-item {
+        min-width: 80px;
+    }
 }
