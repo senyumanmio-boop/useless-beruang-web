@@ -1,24 +1,32 @@
-const checkbox = document.getElementById('light-switch');
+const wall = document.querySelector('.wall');
+const switchBtn = document.getElementById('switch-container');
 const bear = document.getElementById('bear');
+let isLightOn = false;
 
-checkbox.addEventListener('change', () => {
-  if (checkbox.checked) {
-    // Jika lampu nyala, tunggu sebentar (misal 500ms)
+switchBtn.addEventListener('click', () => {
+    if (isLightOn) return; // Jangan bisa ditarik kalau sudah nyala (lagi proses matiin)
+
+    // Efek Tali Ditarik
+    switchBtn.classList.add('pulling');
+    setTimeout(() => switchBtn.classList.remove('pulling'), 100);
+
+    // Nyalakan Lampu
+    isLightOn = true;
+    wall.classList.add('light-on');
+
+    // Beruang bereaksi setelah jeda sebentar
     setTimeout(() => {
-      // 1. Munculkan beruang
-      bear.classList.add('peek');
-      
-      // 2. Beruang mematikan sakelar setelah 300ms muncul
-      setTimeout(() => {
-        checkbox.checked = false;
-        // Opsional: Tambahkan efek suara "klik" di sini
-        
-        // 3. Beruang masuk lagi setelah mematikan
+        bear.classList.add('active');
+
+        // Setelah beruang sampai di sakelar, matikan lampu
         setTimeout(() => {
-          bear.classList.remove('peek');
-        }, 400);
-      }, 300);
-      
+            isLightOn = false;
+            wall.classList.remove('light-on');
+
+            // Beruang masuk lagi
+            setTimeout(() => {
+                bear.classList.remove('active');
+            }, 300);
+        }, 600);
     }, 500);
-  }
 });
