@@ -2,24 +2,68 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Lampu Ngeselin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐻 Annoying Bear Light Switch</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <h1>Jangan Nyalain Lampunya 😈</h1>
-
-    <div class="room light-off" id="room">
-        <div class="door" id="door"></div>
-        <div class="bear" id="bear">🐻</div>
+    <div class="container">
+        <h1>🐻 SISTEM PENGENDALI LAMPU OLEH BERUANG 🐻</h1>
+        
+        <div class="room">
+            <!-- Lampu -->
+            <div class="light" id="light">
+                <div class="bulb"></div>
+                <div class="rays" id="rays"></div>
+            </div>
+            
+            <!-- Pintu -->
+            <div class="door-frame">
+                <div class="door" id="door">
+                    <div class="bear" id="bear">🐻</div>
+                </div>
+            </div>
+            
+            <!-- Saklar -->
+            <div class="switch-panel">
+                <p class="switch-label">SAKLAR LAMPU</p>
+                <button class="switch" id="switchBtn">
+                    <div class="switch-handle" id="switchHandle"></div>
+                </button>
+                <p class="status" id="statusText">Lampu: MATI 💤</p>
+            </div>
+        </div>
+        
+        <!-- Pesan Drama -->
+        <div class="drama-box" id="dramaBox">
+            <p id="dramaText">Siap-sap... 👀</p>
+        </div>
+        
+        <!-- Statistik -->
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number" id="switchCount">0</span>
+                <span class="stat-label">x Switch Ditekan</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="bearCount">0</span>
+                <span class="stat-label">x Beruang Marah</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="frustration">0</span>
+                <span class="stat-label">% Kesal</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>⚠️_warning: Beruang ini akan membuatmu menyerah⚠️</p>
+            <button class="reset-btn" id="resetBtn">RESET SIMULASI</button>
+        </div>
     </div>
-
-    <button id="toggleBtn">Nyalain Lampu</button>
 
     <script src="script.js"></script>
 </body>
 </html>
-        
         <h1 class="instruction">TARIK TALINYA! 🐻</h1>
     </div>
     <script src="script.js"></script>
