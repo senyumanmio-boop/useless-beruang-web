@@ -1,32 +1,32 @@
-const wall = document.querySelector('.wall');
-const switchBtn = document.getElementById('switch-container');
+const wall = document.getElementById('wall');
+const switchAction = document.getElementById('switch-action');
 const bear = document.getElementById('bear');
-let isLightOn = false;
+let busy = false;
 
-switchBtn.addEventListener('click', () => {
-    if (isLightOn) return; // Jangan bisa ditarik kalau sudah nyala (lagi proses matiin)
+switchAction.addEventListener('click', () => {
+    if (busy) return; 
 
-    // Efek Tali Ditarik
-    switchBtn.classList.add('pulling');
-    setTimeout(() => switchBtn.classList.remove('pulling'), 100);
+    // Efek tarik
+    switchAction.classList.add('pulling');
+    setTimeout(() => switchAction.classList.remove('pulling'), 100);
 
-    // Nyalakan Lampu
-    isLightOn = true;
+    // Lampu Nyala
     wall.classList.add('light-on');
+    busy = true;
 
-    // Beruang bereaksi setelah jeda sebentar
+    // Beruang keluar
     setTimeout(() => {
         bear.classList.add('active');
 
-        // Setelah beruang sampai di sakelar, matikan lampu
+        // Beruang narik balik (matikan)
         setTimeout(() => {
-            isLightOn = false;
             wall.classList.remove('light-on');
-
-            // Beruang masuk lagi
+            
+            // Beruang sembunyi lagi
             setTimeout(() => {
                 bear.classList.remove('active');
-            }, 300);
+                busy = false;
+            }, 400);
         }, 600);
     }, 500);
 });
